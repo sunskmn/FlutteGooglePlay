@@ -61,6 +61,9 @@ class _ChartsState extends State<Charts> {
                       future: getJsonFromAssets(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
+                          final String dateString =
+                              '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}';
+
                           return SfCartesianChart(primaryXAxis: CategoryAxis(),
                               // Chart title
                               //title: ChartTitle(text: 'Half yearly sales analysis'),
@@ -68,7 +71,7 @@ class _ChartsState extends State<Charts> {
                                 LineSeries<TemperatureModel, String>(
                                   dataSource: widget.modelList!
                                       .where((element) =>
-                                          element.Day == '2022-1-25')
+                                          element.Day == dateString)
                                       .toList(),
                                   xValueMapper: (TemperatureModel model, _) =>
                                       model.time,
