@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -39,7 +38,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // koko
+
   double temperature = 0;
   late DatabaseReference _temperatureRef;
   late StreamSubscription<Event> _temperatureSubscription;
@@ -68,13 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
       database.setPersistenceCacheSizeBytes(10000000);
       _temperatureRef.keepSynced(true);
     }
-///////////////////////////////////////////////////////////////
+
     database.reference().child('messages').onChildAdded.listen((event) {
       setState(() {
-        print('tryGetKey : ${event.snapshot.value}');
-      modelList.add(TemperatureModel.formJson(event.snapshot.value));
+        print('data : ${event.snapshot.value}');
+        modelList.add(TemperatureModel.formJson(event.snapshot.value));
       });
-       print('koko: ${event.snapshot.value}');
     });
 
     _temperatureSubscription = _temperatureRef.onValue.listen((Event event) {
@@ -88,9 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
         _error = error;
       });
     });
-
   }
-  
+
   // koko
   @override
   Widget build(BuildContext context) {
